@@ -22,7 +22,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            /* Added Emoji fonts to stack for full color support */
+            font-family: 'Inter', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
             background: radial-gradient(circle at center, #1a0508 0%, #000000 100%);
             min-height: 100dvh; 
             display: flex;
@@ -255,6 +256,8 @@
             outline: none; transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             margin-bottom: 1.5rem;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            /* Inherit font family to support emojis in input */
+            font-family: inherit;
         }
         input:focus { 
             border-color: var(--primary); 
@@ -368,7 +371,7 @@
             </div>
             <h1 class="slide-up delay-100">Happy Rose Day</h1>
             <p class="subtitle slide-up delay-200">Enter your name to begin the magical journey of love.</p>
-            <input type="text" id="username" class="slide-up delay-300" placeholder="Your Name" autocomplete="off">
+            <input type="text" id="username" class="slide-up delay-300" placeholder="Your Name 🌹" autocomplete="off">
             <button class="btn slide-up delay-400" onclick="startJourney()">
                 <span>Start Magic</span> <span style="font-size: 1.2rem">✨</span>
             </button>
