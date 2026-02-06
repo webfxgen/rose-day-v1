@@ -428,9 +428,18 @@
             <p class="slide-up delay-300" style="color: #e0e0e0; font-size: 0.9rem; margin-top: 15px; letter-spacing: 1px; text-transform: uppercase;">Happy Rose Day 🌹</p>
             
             <div class="slide-up delay-400" style="width: 100%; margin-top: 25px;">
-                <button class="btn" onclick="shareLove()">
+                <!-- Share Button (Visible by default) -->
+                <button id="share-btn" class="btn" onclick="shareLove()">
                     <span>💌</span> <span>Share with Love</span>
                 </button>
+
+                <!-- Support Button (Hidden by default, shown when Shared Link) -->
+                <div id="support-wrapper" style="display: none; margin-bottom: 15px;">
+                    <form>
+                        <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_S0CCnxIwut7hNL" async> </script> 
+                    </form>
+                </div>
+
                 <button class="btn btn-outline" onclick="resetApp()">Create New</button>
             </div>
         </div>
@@ -521,6 +530,13 @@
                 userName = decodeURIComponent(sharedName);
                 document.getElementById('final-name').innerText = userName;
                 document.getElementById('frame-1').classList.remove('active');
+                
+                // --- Shared Link Logic ---
+                // 1. Hide Share Button
+                document.getElementById('share-btn').style.display = 'none';
+                // 2. Show Support Button
+                document.getElementById('support-wrapper').style.display = 'block';
+
                 document.getElementById('progress-container').style.display = 'block';
                 nextFrame(); 
             }
@@ -584,7 +600,7 @@
                 }).catch(console.error);
             } else {
                 navigator.clipboard.writeText(url).then(() => {
-                    const btn = document.querySelector('#frame-5 .btn');
+                    const btn = document.querySelector('#share-btn');
                     const originalHTML = btn.innerHTML;
                     btn.innerHTML = "<span>Link Copied!</span> <span>📋</span>";
                     setTimeout(() => btn.innerHTML = originalHTML, 2000);
@@ -596,11 +612,18 @@
             if (timer) clearTimeout(timer);
             currentFrame = 1;
             userName = "";
+            
+            // UI Reset
             document.querySelectorAll('.frame').forEach(f => f.classList.remove('active'));
             document.getElementById('frame-1').classList.add('active');
             document.getElementById('username').value = "";
             document.getElementById('progress-container').style.display = 'none';
             document.getElementById('progress-bar').style.width = '0%';
+            
+            // Reset Button Visibility to Default (Share visible, Support hidden)
+            document.getElementById('share-btn').style.display = 'flex';
+            document.getElementById('support-wrapper').style.display = 'none';
+
             try {
                 const url = new URL(window.location.href);
                 url.search = "";
