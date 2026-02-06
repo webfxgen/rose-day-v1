@@ -190,6 +190,13 @@
 
         @keyframes shineText { to { background-position: 200% center; } }
 
+        /* Fix for emojis in the username display */
+        #final-name {
+            background: none;
+            -webkit-text-fill-color: #ffffff; /* Restore solid color so emojis render correctly */
+            text-shadow: 0 0 10px rgba(255, 64, 129, 0.6);
+        }
+
         p.subtitle { 
             color: var(--text-muted); 
             margin-bottom: 2rem; 
